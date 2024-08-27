@@ -1,6 +1,6 @@
 <div class="container mt-5 mb-5">
   <main class="form-signin col-md-4 offset-md-4">
-      <form>
+      <form [formGroup]="registerForm">
 
           <div class="text-center">
               <img class="mb-4" src="assets/images/psc.png" alt="" width="100" height="100" priority>
@@ -15,6 +15,13 @@
                 class="form-control"
                 id="floatingInput">
             <label for="floatingInput">Fullname</label>
+            @if(submitted && registerForm.controls['fullname'].errors){
+              @if(registerForm.controls['fullname'].errors['required']){
+                <div class="text-danger mt-2">
+                  กรุณาป้อน Fullname
+                </div>
+              }
+            }
         </div>
 
           <div class="form-floating mb-2">
@@ -25,6 +32,18 @@
                   class="form-control"
                   id="floatingInput">
               <label for="floatingInput">Email</label>
+              @if(submitted && registerForm.controls['email'].errors){
+                @if(registerForm.controls['email'].errors['required']){
+                  <div class="text-danger mt-2">
+                    กรุณาป้อน Email
+                  </div>
+                }
+                @if(registerForm.controls['email'].errors['email']){
+                  <div class="text-danger mt-2">
+                    กรุณาป้อนรูปแบบ Email ให้ถูกต้อง
+                  </div>
+                }
+              }
           </div>
 
           <div class="form-floating mb-2">
@@ -35,6 +54,13 @@
                 class="form-control"
                 id="floatingInput">
             <label for="floatingInput">Mobile</label>
+            @if(submitted && registerForm.controls['mobile'].errors){
+              @if(registerForm.controls['mobile'].errors['required']){
+                <div class="text-danger mt-2">
+                  กรุณาป้อน Mobile
+                </div>
+              }
+            }
         </div>
 
           <div class="form-floating">
@@ -45,18 +71,31 @@
                   class="form-control"
                   id="floatingPassword">
               <label for="floatingPassword">Password</label>
-
+              @if(submitted && registerForm.controls['password'].errors){
+                @if(registerForm.controls['password'].errors['required']){
+                  <div class="text-danger mt-2">
+                    กรุณาป้อน Password
+                  </div>
+                }
+                @if(registerForm.controls['password'].errors['minlength']){
+                  <div class="text-danger mt-2">
+                    กรุณากรอกรหัสผ่านให้เกิน 6 ตัวษร
+                  </div>
+                }
+              }
           </div>
 
           <button
               class="btn btn-primary w-100 py-2 mt-2"
               type="submit"
+              (click)="submitRegister()"
               >Sign up
           </button>
 
           <button
               class="btn btn-warning w-100 py-2 mt-2"
               type="submit"
+              (click)="resetForm()"
               >Reset
           </button>
 
